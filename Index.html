@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>JemixTools - Free Online Tools</title>
+  <meta name="description" content="JemixTools provides free online calculators, text tools, generators and useful everyday tools.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 20px;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px;
+      background: white;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .tools {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .tools h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .tool-card h3 {
+      margin-bottom: 10px;
+    }
+
+    input,
+    textarea,
+    button {
+      width: 100%;
+      padding: 11px;
+      margin-top: 10px;
+      border-radius: 7px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+
+    button {
+      background: #111827;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 30px;
+      text-align: center;
+      background: #111827;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">JemixTools</div>
+
+    <div>
+      <a href="#">Home</a>
+      <a href="#tools">Tools</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>JemixTools</h1>
+  <p>Free tools. Simple solutions.</p>
+  <a href="#tools">
+    <button style="max-width:220px;">Explore Tools</button>
+  </a>
+</section>
+
+<section class="tools" id="tools">
+
+  <h2>Free Online Tools</h2>
+
+  <div class="tool-grid">
+
+    <!-- Percentage Calculator -->
+    <div class="tool-card">
+      <h3>Percentage Calculator</h3>
+      <p>Calculate a percentage of a number.</p>
+
+      <input type="number" id="percent" placeholder="Percentage (%)">
+      <input type="number" id="percentNumber" placeholder="Number">
+
+      <button onclick="calculatePercentage()">Calculate</button>
+
+      <div class="result" id="percentageResult"></div>
+    </div>
+
+
+    <!-- Age Calculator -->
+    <div class="tool-card">
+      <h3>Age Calculator</h3>
+      <p>Calculate your age from your date of birth.</p>
+
+      <input type="date" id="birthDate">
+
+      <button onclick="calculateAge()">Calculate Age</button>
+
+      <div class="result" id="ageResult"></div>
+    </div>
+
+
+    <!-- Word Counter -->
+    <div class="tool-card">
+      <h3>Word Counter</h3>
+      <p>Count words and characters in your text.</p>
+
+      <textarea id="textInput" rows="5"
+        placeholder="Type or paste your text here..."
+        oninput="countWords()"></textarea>
+
+      <div class="result" id="wordResult">
+        Words: 0 | Characters: 0
+      </div>
+    </div>
+
+
+    <!-- Password Generator -->
+    <div class="tool-card">
+      <h3>Password Generator</h3>
+      <p>Generate a random strong password.</p>
+
+      <input type="number" id="passwordLength"
+             value="12" min="4" max="50">
+
+      <button onclick="generatePassword()">Generate Password</button>
+
+      <input type="text" id="passwordResult"
+             readonly placeholder="Your password will appear here">
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 JemixTools. All rights reserved.</p>
+  <p>Free online tools for everyone.</p>
+</footer>
+
+
+<script>
+
+  // Percentage Calculator
+  function calculatePercentage() {
+
+    const percentage =
+      parseFloat(document.getElementById("percent").value);
+
+    const number =
+      parseFloat(document.getElementById("percentNumber").value);
+
+    const result =
+      document.getElementById("percentageResult");
+
+    if (isNaN(percentage) || isNaN(number)) {
+      result.textContent = "Please enter both numbers.";
+      return;
+    }
+
+    const answer = (percentage / 100) * number;
+
+    result.textContent = "Result: " + answer;
+  }
+
+
+  // Age Calculator
+  function calculateAge() {
+
+    const birthDate =
+      new Date(document.getElementById("birthDate").value);
+
+    const result =
+      document.getElementById("ageResult");
+
+    if (isNaN(birthDate.getTime())) {
+      result.textContent = "Please select your birth date.";
+      return;
+    }
+
+    const today = new Date();
+
+    let age =
+      today.getFullYear() - birthDate.getFullYear();
+
+    const monthDifference =
+      today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (
+        monthDifference === 0 &&
+        today.getDate() < birthDate.getDate()
+      )
+    ) {
+      age--;
+    }
+
+    result.textContent = "Your age is " + age + " years.";
+  }
+
+
+  // Word Counter
+  function countWords() {
+
+    const text =
+      document.getElementById("textInput").value;
+
+    const words =
+      text.trim() === ""
+        ? 0
+        : text.trim().split(/\s+/).length;
+
+    const characters = text.length;
+
+    document.getElementById("wordResult").textContent =
+      "Words: " + words +
+      " | Characters: " + characters;
+  }
+
+
+  // Password Generator
+  function generatePassword() {
+
+    const length =
+      parseInt(document.getElementById("passwordLength").value);
+
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+
+      const randomIndex =
+        Math.floor(Math.random() * characters.length);
+
+      password += characters[randomIndex];
+    }
+
+    document.getElementById("passwordResult").value =
+      password;
+  }
+
+</script>
+
+</body>
+</html>
